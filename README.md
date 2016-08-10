@@ -15,7 +15,7 @@ Load the package with:
 ```julia
 using PFM
 ```
-To read the image ```example.pfm```` enter the following command:
+To read the image ```example.pfm``` enter the following command:
 ```julia
 A=pfmread("example.pfm")
 ```
