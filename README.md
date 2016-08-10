@@ -19,7 +19,7 @@ To read the image ```example.pfm``` enter the following command:
 ```julia
 A=pfmread("example.pfm")
 ```
-To save an array withthe type ```julia Array{Float32}``` or ```julia Array{Float64}``` enter:
+To save an array with type ```julia Array{Float32}``` or ```julia Array{Float64}``` enter:
 ```julia
 pfmwrite("example.pfm", A)
 ```
