@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/pleise/PFM.jl.svg?branch=master)](https://travis-ci.org/pleise/PFM.jl)
 
-Portable Float Map ([PFM]) is a graphic image file format. This package provides an interface to read and write .pfm image files in [Julia].
+Portable Float Map (PFM) is a graphic image file format. This package provides an interface to read and write .pfm image files in [Julia]. The PFM format is used to store only ```Float32``` Arrays. Therefore every ```Float64``` Array will be converted automatically.
 
 ## Installation
 ```julia
@@ -35,6 +35,4 @@ pfmwrite("example.pfm", A)
 
 
 
-
 [Julia]: http://julialang.org "Julia"
-[PFM]: http://www.pauldebevec.com/Research/HDR/PFM/ "PFM"
