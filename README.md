@@ -36,3 +36,4 @@ pfmwrite("example.pfm", A)
 
 
 [Julia]: http://julialang.org "Julia"
+[PFM]: http://www.pauldebevec.com/Research/HDR/PFM/ "PFM"
