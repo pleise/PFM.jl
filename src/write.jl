@@ -1,7 +1,7 @@
-"""    pfmwrite(File::ASCIIString, Img::Array{Float32}) 
-    pfmwrite(File::ASCIIString, Img::Array{Float64}) 
-    pfmwrite(File::ASCIIString, Img::Array{Float32}, Endian::ASCIIString)
-    pfmwrite(File::ASCIIString, Img::Array{Float64}, Endian::ASCIIString)
+"""    pfmwrite(File::String, Img::Array{Float32}) 
+    pfmwrite(File::String, Img::Array{Float64}) 
+    pfmwrite(File::String, Img::Array{Float32}, Endian::String)
+    pfmwrite(File::String, Img::Array{Float64}, Endian::String)
 
 Write an `Array` to a .pfm (Portable Float Map) image file.
 
@@ -9,7 +9,7 @@ Write an `Array` to a .pfm (Portable Float Map) image file.
 `Endian` is either "little-endian" or "big-endian".
 
 """
-function pfmwrite(File::ASCIIString, Img::Array{Float64})
+function pfmwrite(File::String, Img::Array{Float64})
     
     # check the endian on the host system
     if isequal(ENDIAN_BOM, 0x01020304) 
@@ -94,7 +94,7 @@ function pfmwrite(File::ASCIIString, Img::Array{Float64})
     
 end
 
-function pfmwrite(File::ASCIIString, Img::Array{Float32})
+function pfmwrite(File::String, Img::Array{Float32})
     
     # check the endian on the host system
     if isequal(ENDIAN_BOM, 0x01020304) 
@@ -183,7 +183,7 @@ end
 
 ############################################################
 
-function pfmwrite(File::ASCIIString, Img::Array{Float32}, Endian::ASCIIString)
+function pfmwrite(File::String, Img::Array{Float32}, Endian::String)
     
     # check the endian on the host system
     if isequal(ENDIAN_BOM, 0x01020304) 
@@ -389,7 +389,7 @@ end
 ###########################
 
 
-function pfmwrite(File::ASCIIString, Img::Array{Float64}, Endian::ASCIIString)
+function pfmwrite(File::String, Img::Array{Float64}, Endian::String)
     
     # check the endian on the host system
     if isequal(ENDIAN_BOM, 0x01020304) 

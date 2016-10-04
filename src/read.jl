@@ -1,8 +1,8 @@
-"""    pfmread(File::ASCIIString) 
+"""    pfmread(File::String) 
 Read a .pfm (Portable Float Map) image file and return the image as a `Float32`-Array.
 
 `File` is the image, i.e. \"image.pfm\" """
-function pfmread(File::ASCIIString)
+function pfmread(File::String)
     
     #check the file ending
     if ~ismatch(r".pfm", File[end-3:end])
