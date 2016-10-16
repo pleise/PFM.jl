@@ -26,7 +26,8 @@ function pfmread(File::String)
     if ~isopen(f)
         error("Can't open the file!")
     end
-    A=readbytes(f)
+    #A=readbytes(f)
+    A=read(f)
     close(f)
     
     # get the ending of the first, second and third "line"
@@ -50,10 +51,10 @@ function pfmread(File::String)
     
     
     # Check if grayscale or 3-channel RGB image
-    if ascii(A[1:del[1,1]-1]) == "Pf"
+    if ascii(String(A[1:del[1,1]-1])) == "Pf"
         #println("grayscale image")
         color="grayscale"
-    elseif ascii(A[1:del[1,1]-1]) == "PF"
+    elseif ascii(String(A[1:del[1,1]-1])) == "PF"
         #println("3-channel RGB color image")
         color="RGB"
     else
@@ -61,7 +62,7 @@ function pfmread(File::String)
     end
     
     # get the dimensions
-    dim=ascii(A[del[1,1]+1:del[2,1]-1])
+    dim=ascii(String(A[del[1,1]+1:del[2,1]-1]))
     if ismatch(r"\d+\s\d+", dim)
         # Parse the input for the image size
         m=match(r"(?P<width>\d+)\s(?P<height>\d+)", dim)
@@ -71,7 +72,7 @@ function pfmread(File::String)
         error("Incorrect declaration of the dimensions in line 2!")
     end
     
-    byteorder=ascii(A[del[2,1]+1:del[3,1]-1])
+    byteorder=ascii(String(A[del[2,1]+1:del[3,1]-1]))
     if ismatch(r"\d+.\d+", byteorder)
         line3=parse(Float64, byteorder)
     else
