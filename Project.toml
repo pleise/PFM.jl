@@ -1,0 +1,12 @@
+name = "PFM"
+uuid = "f731acbe-f3b8-11e8-1f9b-bf615e2c834e"
+authors = ["Philipp Leise"]
+version = "0.1.1"
+
+[extras]
+Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
+
+[targets]
+test = ["Test"]
+
+

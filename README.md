@@ -5,8 +5,9 @@
 Portable Float Map ([PFM]) is a graphic image file format. This package provides an interface to read and write .pfm image files in [Julia]. The PFM format is used to store only ```Float32``` Arrays. Therefore every ```Float64``` Array will be converted automatically. Only grayscale and RGB images can be stored in this file format.
 
 ## Installation
+Enter the package manager in Julia 0.7 or higher by using the `]`-button. The type the following to install this package:
 ```julia
-Pkg.clone("git://github.com/pleise/PFM.jl.git")
+add https://github.com/pleise/PFM.jl
 ```
 
 ## Basic usage
@@ -15,13 +16,13 @@ Load the package with:
 ```julia
 using PFM
 ```
-To read the image ```example.pfm``` enter the following command:
-```julia
-A=pfmread("example.pfm")
-```
 To save an array with type ```Array{Float32}``` or ```Array{Float64}``` enter:
 ```julia
 pfmwrite("example.pfm", A)
+```
+To read the image ```example.pfm``` enter the following command:
+```julia
+A=pfmread("example.pfm")
 ```
 
 
