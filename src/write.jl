@@ -1,13 +1,13 @@
-"""    pfmwrite(File::String, Img::Array{Float32}) 
+""" 
+    pfmwrite(File::String, Img::Array{Float32}) 
     pfmwrite(File::String, Img::Array{Float64}) 
     pfmwrite(File::String, Img::Array{Float32}, Endian::String)
     pfmwrite(File::String, Img::Array{Float64}, Endian::String)
 
 Write an `Array` to a .pfm (Portable Float Map) image file.
 
-`File` is the image file, i.e. \"image.pfm\." `Img` is the Image to save.
-`Endian` is either "little-endian" or "big-endian".
-
+`File` is the image file, i.e. \"image.pfm\". `Img` is the Image to save.
+`Endian` is either \"little-endian\" or \"big-endian\".
 """
 function pfmwrite(File::String, Img::Array{Float64})
     
@@ -20,15 +20,13 @@ function pfmwrite(File::String, Img::Array{Float64})
         hostendian="little-endian"
     else
         error("Can't detect the endian of the host!")
-    end
-    
-    
+    end 
     
     f=open(File,"w")
+    
     if ~isopen(f)
         error("Can't open the file!")
     end
-    
 
     if length(size(Img)) == 3 && size(Img,3)==3
          
@@ -48,15 +46,13 @@ function pfmwrite(File::String, Img::Array{Float64})
         
         # Write the image data in the host-endian format
         
-        for i=size(A,1):-1:1
-            for j=1:size(A,2)
-                for k=1:size(A,3)
-                    write(f, Float32(A[i,j,k]))
+        for i=size(Img,1):-1:1
+            for j=1:size(Img,2)
+                for k=1:size(Img,3)
+                    write(f, Float32(Img[i,j,k]))
                 end
             end
-        end
-        
-   
+        end 
     elseif length(size(Img)) == 2 || (length(size(Img)) == 3 && size(Img,3)==1)
         #println("write Pf")
         write(f, "Pf\n")
@@ -69,29 +65,17 @@ function pfmwrite(File::String, Img::Array{Float64})
             write(f, "-1.0\n")
         elseif hostendian == "big-endian"
             write(f, "1.0\n")
-        end
-        
-        
-        # Write the image data in the host-endian format
-        
-        for i=size(A,1):-1:1
-            for j=1:size(A,2)
-                write(f, Float32(A[i,j]))
+        end  
+        # Write the image data in the host-endian format 
+        for i=size(Img,1):-1:1
+            for j=1:size(Img,2)
+                write(f, Float32(Img[i,j]))
             end
-        end
-        
-        
-        
+        end      
     else
         error("The input can't be written to a .pmf file! Only NxN, NxNx1 or NxNx3 arrays can be stored in a .pmf file!")
-    end
-    
-    
-    close(f)
-    
-    
-    
-    
+    end  
+    close(f)  
 end
 
 function pfmwrite(File::String, Img::Array{Float32})
@@ -106,9 +90,7 @@ function pfmwrite(File::String, Img::Array{Float32})
     else
         error("Can't detect the endian of the host!")
     end
-    
-    
-    
+ 
     f=open(File,"w")
     if ~isopen(f)
         error("Can't open the file!")
@@ -133,15 +115,14 @@ function pfmwrite(File::String, Img::Array{Float32})
         
         # Write the image data in the host-endian format
         
-        for i=size(A,1):-1:1
-            for j=1:size(A,2)
-                #for k=1:size(A,3)
-                    write(f, A[i,j,:])
+        for i=size(Img,1):-1:1
+            for j=1:size(Img,2)
+                #for k=1:size(Img,3)
+                    write(f, Img[i,j,:])
                 #end
             end
         end
-        
-   
+
     elseif length(size(Img)) == 2 || (length(size(Img)) == 3 && size(Img,3)==1)
         #println("write Pf")
         write(f, "Pf\n")
@@ -155,33 +136,22 @@ function pfmwrite(File::String, Img::Array{Float32})
         elseif hostendian == "big-endian"
             write(f, "1.0\n")
         end
-        
-        
+   
         # Write the image data in the host-endian format
         
-        for i=size(A,1):-1:1
-            for j=1:size(A,2)
-                write(f, A[i,j])
+        for i=size(Img,1):-1:1
+            for j=1:size(Img,2)
+                write(f, Img[i,j])
             end
         end
-        
-        
-        
+     
     else
         error("The input can't be written to a .pmf file! Only NxN, NxNx1 or NxNx3 arrays can be stored in a .pmf file!")
     end
-    
-    
+
     close(f)
-    
-    
-    
-    
+
 end
-
-
-
-############################################################
 
 function pfmwrite(File::String, Img::Array{Float32}, Endian::String)
     
@@ -225,10 +195,10 @@ function pfmwrite(File::String, Img::Array{Float32}, Endian::String)
 
             # Write the image data in the host-endian format
 
-            for i=size(A,1):-1:1
-                for j=1:size(A,2)
-                    #for k=1:size(A,3)
-                        write(f, A[i,j,:])
+            for i=size(Img,1):-1:1
+                for j=1:size(Img,2)
+                    #for k=1:size(Img,3)
+                        write(f, Img[i,j,:])
                     #end
                 end
             end
@@ -251,9 +221,9 @@ function pfmwrite(File::String, Img::Array{Float32}, Endian::String)
 
             # Write the image data in the host-endian format
 
-            for i=size(A,1):-1:1
-                for j=1:size(A,2)
-                    write(f, A[i,j])
+            for i=size(Img,1):-1:1
+                for j=1:size(Img,2)
+                    write(f, Img[i,j])
                 end
             end
 
@@ -280,10 +250,10 @@ function pfmwrite(File::String, Img::Array{Float32}, Endian::String)
 
             # Write the image data in the host-endian format
 
-            for i=size(A,1):-1:1
-                for j=1:size(A,2)
-                    for k=1:size(A,3)
-                        write(f, hton(A[i,j,k]))
+            for i=size(Img,1):-1:1
+                for j=1:size(Img,2)
+                    for k=1:size(Img,3)
+                        write(f, hton(Img[i,j,k]))
                     end
                 end
             end
@@ -303,22 +273,16 @@ function pfmwrite(File::String, Img::Array{Float32}, Endian::String)
 
             # Write the image data in the big-endian format
 
-            for i=size(A,1):-1:1
-                for j=1:size(A,2)
-                    write(f, hton(A[i,j]))
+            for i=size(Img,1):-1:1
+                for j=1:size(Img,2)
+                    write(f, hton(Img[i,j]))
                 end
             end
-
-
 
         else
             error("The input can't be written to a .pmf file! Only NxN, NxNx1 or NxNx3 arrays can be stored in a .pmf file!")
         end
-        
-        
-        
-        
-        
+  
     elseif Endian=="little-endian" && hostendian == "big-endian"  
         
         if length(size(Img)) == 3 && size(Img,3)==3
@@ -335,10 +299,10 @@ function pfmwrite(File::String, Img::Array{Float32}, Endian::String)
 
             # Write the image data in the little-endian format
 
-            for i=size(A,1):-1:1
-                for j=1:size(A,2)
-                    for k=1:size(A,3)
-                        write(f, htol(A[i,j,k]))
+            for i=size(Img,1):-1:1
+                for j=1:size(Img,2)
+                    for k=1:size(Img,3)
+                        write(f, htol(Img[i,j,k]))
                     end
                 end
             end
@@ -358,36 +322,19 @@ function pfmwrite(File::String, Img::Array{Float32}, Endian::String)
 
             # Write the image data in the host-endian format
 
-            for i=size(A,1):-1:1
-                for j=1:size(A,2)
-                    write(f, htol(A[i,j]))
+            for i=size(Img,1):-1:1
+                for j=1:size(Img,2)
+                    write(f, htol(Img[i,j]))
                 end
             end
-
-
 
         else
             error("The input can't be written to a .pmf file! Only NxN, NxNx1 or NxNx3 arrays can be stored in a .pmf file!")
         end
-        
-        
-        
-        
-        
-    end
-        
-    close(f)
-    
-    
-    
-    
+      
+    end       
+    close(f) 
 end
-
-
-
-
-###########################
-
 
 function pfmwrite(File::String, Img::Array{Float64}, Endian::String)
     
@@ -431,10 +378,10 @@ function pfmwrite(File::String, Img::Array{Float64}, Endian::String)
 
             # Write the image data in the host-endian format
 
-            for i=size(A,1):-1:1
-                for j=1:size(A,2)
-                    for k=1:size(A,3)
-                        write(f, Float32(A[i,j,k]))
+            for i=size(Img,1):-1:1
+                for j=1:size(Img,2)
+                    for k=1:size(Img,3)
+                        write(f, Float32(Img[i,j,k]))
                     end
                 end
             end
@@ -457,9 +404,9 @@ function pfmwrite(File::String, Img::Array{Float64}, Endian::String)
 
             # Write the image data in the host-endian format
 
-            for i=size(A,1):-1:1
-                for j=1:size(A,2)
-                    write(f, Float32(A[i,j]))
+            for i=size(Img,1):-1:1
+                for j=1:size(Img,2)
+                    write(f, Float32(Img[i,j]))
                 end
             end
 
@@ -486,10 +433,10 @@ function pfmwrite(File::String, Img::Array{Float64}, Endian::String)
 
             # Write the image data in the host-endian format
 
-            for i=size(A,1):-1:1
-                for j=1:size(A,2)
-                    for k=1:size(A,3)
-                        write(f, hton(Float32(A[i,j,k])))
+            for i=size(Img,1):-1:1
+                for j=1:size(Img,2)
+                    for k=1:size(Img,3)
+                        write(f, hton(Float32(Img[i,j,k])))
                     end
                 end
             end
@@ -509,9 +456,9 @@ function pfmwrite(File::String, Img::Array{Float64}, Endian::String)
 
             # Write the image data in the big-endian format
 
-            for i=size(A,1):-1:1
-                for j=1:size(A,2)
-                    write(f, hton(Float32(A[i,j])))
+            for i=size(Img,1):-1:1
+                for j=1:size(Img,2)
+                    write(f, hton(Float32(Img[i,j])))
                 end
             end
 
@@ -541,17 +488,16 @@ function pfmwrite(File::String, Img::Array{Float64}, Endian::String)
 
             # Write the image data in the little-endian format
 
-            for i=size(A,1):-1:1
-                for j=1:size(A,2)
-                    for k=1:size(A,3)
-                        write(f, htol(Float32(A[i,j,k])))
+            for i=size(Img,1):-1:1
+                for j=1:size(Img,2)
+                    for k=1:size(Img,3)
+                        write(f, htol(Float32(Img[i,j,k])))
                     end
                 end
             end
 
 
         elseif length(size(Img)) == 2 || (length(size(Img)) == 3 && size(Img,3)==1)
-            #println("write Pf")
             write(f, "Pf\n")
 
             # write the size
@@ -559,34 +505,21 @@ function pfmwrite(File::String, Img::Array{Float64}, Endian::String)
 
             # write little-endian to the pfm file
             write(f, "-1.0\n")
-            
-
 
             # Write the image data in the host-endian format
 
-            for i=size(A,1):-1:1
-                for j=1:size(A,2)
-                    write(f, htol(Float32(A[i,j])))
+            for i=size(Img,1):-1:1
+                for j=1:size(Img,2)
+                    write(f, htol(Float32(Img[i,j])))
                 end
             end
-
-
 
         else
             error("The input can't be written to a .pmf file! Only NxN, NxNx1 or NxNx3 arrays can be stored in a .pmf file!")
         end
-        
-        
-        
-        
-        
+     
     end
         
     close(f)
-    
-    
-    
-    
+   
 end
-
-

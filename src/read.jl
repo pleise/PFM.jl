@@ -1,11 +1,12 @@
 """    pfmread(File::String) 
 Read a .pfm (Portable Float Map) image file and return the image as a `Float32`-Array.
 
-`File` is the image, i.e. \"image.pfm\" """
+`File` is the image, i.e. \"image.pfm\" 
+"""
 function pfmread(File::String)
     
     #check the file ending
-    if ~ismatch(r".pfm", File[end-3:end])
+    if ~occursin(r".pfm", File[end-3:end])
         error("Wrong file ending! Must be a .pfm file!")
     end
     
@@ -63,7 +64,7 @@ function pfmread(File::String)
     
     # get the dimensions
     dim=ascii(String(A[del[1,1]+1:del[2,1]-1]))
-    if ismatch(r"\d+\s\d+", dim)
+    if occursin(r"\d+\s\d+", dim)
         # Parse the input for the image size
         m=match(r"(?P<width>\d+)\s(?P<height>\d+)", dim)
         width=parse(Int,m[:width])
@@ -73,7 +74,7 @@ function pfmread(File::String)
     end
     
     byteorder=ascii(String(A[del[2,1]+1:del[3,1]-1]))
-    if ismatch(r"\d+.\d+", byteorder)
+    if occursin(r"\d+.\d+", byteorder)
         line3=parse(Float64, byteorder)
     else
         error("Incorrect byte order in line 3!")
@@ -89,13 +90,10 @@ function pfmread(File::String)
     
     # right declaration of the final image
     if mod((size(A,1)-del[3,1]),4) == 0
-        
-        
-        
+  
         if color=="grayscale"
             # prepare the image-matrix
-            #Img=zeros(Float32, height, width);
-            Img=Array{Float32}(height, width);
+            Img=Array{Float32}(undef, height, width);
             
             fl32=reinterpret(Float32, A[del[3,1]+1:end])
 
@@ -112,8 +110,7 @@ function pfmread(File::String)
                 end
                 
             end
-            
-            
+      
             k=1
             for i=size(Img,1):-1:1
                 for j=1:size(Img,2)
@@ -125,13 +122,10 @@ function pfmread(File::String)
             return Img
                 
         elseif color=="RGB"
-            Img=Array{Float32}(height, width,3);
-                
-            
+            Img=Array{Float32}(undef, height, width,3);
+
             fl32=reinterpret(Float32, A[del[3,1]+1:end])
-             
-            
-            
+
             if (endian=="little-endian" && hostendian=="little-endian") || (endian=="big-endian" && hostendian=="big-endian")
                 # do nothing
             elseif endian=="big-endian" && hostendian=="little-endian"
@@ -145,10 +139,7 @@ function pfmread(File::String)
                 end
                 
             end
-            
-            
-            
-                
+              
             l=1
             for i=size(Img,1):-1:1
                 for j=1:size(Img,2)
@@ -159,21 +150,12 @@ function pfmread(File::String)
                 end
             end 
             return Img
-                
-                
-                
-                
-                
-                
-                
+ 
         end
 
-
-    
     else
         error("wrong declaration of the image data. It must be a Float32 for each Pixel!")
     end
-
 end
 
 
